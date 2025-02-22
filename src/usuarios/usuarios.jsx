@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import '../style.css';
 
 export default function UserPage() {
     const [users, setUsers] = useState([]);
@@ -18,20 +19,32 @@ export default function UserPage() {
     }, []);
 
     return (
-        <div className="p-4 max-w-md mx-auto border rounded-lg shadow-md">
-            <h1 className="text-xl font-bold">Información de los Usuarios</h1>
+        <div className="p-4 max-w-4xl mx-auto bg-gray-900 text-white rounded-lg shadow-lg">
+            <h1 className="text-2xl font-bold mb-6 text-center">Información de los Usuarios</h1>
             {users.length > 0 ? (
-                <div className="mt-4">
-                    {users.map((user, index) => (
-                        <div key={index} className="mb-4">
-                            <p><strong>Nombre:</strong> {user.name}</p>
-                            <p><strong>Apellido:</strong> {user.last_name}</p>
-                            <p><strong>Email:</strong> {user.email}</p>
-                        </div>
-                    ))}
-                </div>
+                <table className="w-full table-auto text-sm text-left border-separate border-spacing-0 rounded-lg overflow-hidden">
+                    <thead className="bg-teal-600 text-white">
+                        <tr>
+                            <th className="px-6 py-3 text-left">Nombre</th>
+                            <th className="px-6 py-3 text-left">Apellido</th>
+                            <th className="px-6 py-3 text-left">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map((user, index) => (
+                            <tr
+                                key={index}
+                                className={`${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-700'} hover:bg-teal-700`}
+                            >
+                                <td className="px-6 py-4 border-b border-gray-600">{user.name}</td>
+                                <td className="px-6 py-4 border-b border-gray-600">{user.last_name}</td>
+                                <td className="px-6 py-4 border-b border-gray-600">{user.email}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             ) : (
-                <p>Cargando...</p>
+                <p className="text-center">Cargando...</p>
             )}
         </div>
     );
