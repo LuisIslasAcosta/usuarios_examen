@@ -8,7 +8,7 @@ export default function UserPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://3.147.62.131/');
+                const response = await fetch('http://ec2-3-147-62-131.us-east-2.compute.amazonaws.com/api/users');
                 if (!response.ok) {
                     console.error(`Error: ${response.status} - ${response.statusText}`);
                     throw new Error('Error al obtener los datos');
