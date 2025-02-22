@@ -1,47 +1,38 @@
-    import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-    export default function UserPage() {
+export default function UserPage() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
+        // Simulando una API con un JSON local
         const fetchData = async () => {
-        try {
-            const response = await fetch("http://localhost:3000/api/usuarios");
-            const data = await response.json();
+            const data = [
+                { name: "Luis", last_name: "Islas", email: "luis@gmail.com" },
+                { name: "Ana", last_name: "Pérez", email: "ana@gmail.com" },
+                { name: "Carlos", last_name: "Gómez", email: "carlos@gmail.com" }
+            ];
             setUsers(data);
-        } catch (error) {
-            console.error("Error al obtener los datos:", error);
-        }
         };
         
         fetchData();
     }, []);
 
     return (
-        <div className="p-4 max-w-lg mx-auto border rounded-lg shadow-md">
-        <h1 className="text-xl font-bold mb-4">Lista de Usuarios</h1>
-        {users.length > 0 ? (
-            <table className="min-w-full border-collapse border border-gray-300">
-            <thead>
-                <tr className="bg-gray-200">
-                <th className="border border-gray-300 p-2">Nombre</th>
-                <th className="border border-gray-300 p-2">Apellido</th>
-                <th className="border border-gray-300 p-2">Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                {users.map((user, index) => (
-                <tr key={index} className="border border-gray-300">
-                    <td className="border border-gray-300 p-2">{user.name}</td>
-                    <td className="border border-gray-300 p-2">{user.last_name}</td>
-                    <td className="border border-gray-300 p-2">{user.email}</td>
-                </tr>
-                ))}
-            </tbody>
-            </table>
-        ) : (
-            <p>Cargando...</p>
-        )}
+        <div className="p-4 max-w-md mx-auto border rounded-lg shadow-md">
+            <h1 className="text-xl font-bold">Información de los Usuarios</h1>
+            {users.length > 0 ? (
+                <div className="mt-4">
+                    {users.map((user, index) => (
+                        <div key={index} className="mb-4">
+                            <p><strong>Nombre:</strong> {user.name}</p>
+                            <p><strong>Apellido:</strong> {user.last_name}</p>
+                            <p><strong>Email:</strong> {user.email}</p>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p>Cargando...</p>
+            )}
         </div>
     );
-    }
+}
