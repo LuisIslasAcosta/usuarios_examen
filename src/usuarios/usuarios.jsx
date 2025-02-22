@@ -6,7 +6,7 @@
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/usuarios");
+            const response = await fetch("http://34.213.100.50:3000/api/usuarios");
             const data = await response.json();
             setUsers(data);
         } catch (error) {
