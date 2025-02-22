@@ -6,14 +6,18 @@ export default function UserPage() {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        // Simulando una API con un JSON local
         const fetchData = async () => {
-            const data = [
-                { name: "Luis", last_name: "Islas", email: "luis@gmail.com" },
-                { name: "Sofia", last_name: "Sanchez", email: "sofi@gmail.com" },
-                { name: "Carlos", last_name: "Villavicencio", email: "carlos@gmail.com" }
-            ];
-            setUsers(data);
+            try {
+                const response = await fetch('http://ec2-3-147-62-131.us-east-2.compute.amazonaws.com/api/users');
+                if (!response.ok) {
+                    console.error(`Error: ${response.status} - ${response.statusText}`);
+                    throw new Error('Error al obtener los datos');
+                }
+                const data = await response.json();
+                setUsers(data);
+            } catch (error) {
+                console.error("Error al obtener los usuarios:", error);
+            }
         };
 
         fetchData();
@@ -33,7 +37,6 @@ export default function UserPage() {
         <div className="p-4 max-w-4xl mx-auto bg-gray-900 text-white rounded-lg shadow-lg">
             <h1 className="text-2xl font-bold mb-6 text-center">Información de los Usuarios</h1>
 
-            {/* Buscador */}
             <input
                 type="text"
                 placeholder="Buscar por nombre, apellido o correo..."
